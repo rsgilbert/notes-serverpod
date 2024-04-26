@@ -1,0 +1,22 @@
+// start docker
+// from server
+docker compose up --build --detach     
+
+// run server in maintenance mode
+// from server 
+dart run .\bin\main.dart --role maintenance --apply-migrations
+
+
+// create a migration 
+// from server 
+serverpod create-migration
+
+
+// generate classes from yaml 
+// from server 
+serverpod generate 
+
+// run flutter app in chrome browser
+// from flutter directory
+flutter run -d chrome   
+
