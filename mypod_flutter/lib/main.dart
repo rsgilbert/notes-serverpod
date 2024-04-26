@@ -1,5 +1,6 @@
 import 'package:mypod_client/mypod_client.dart';
 import 'package:flutter/material.dart';
+import 'package:mypod_flutter/loading_screen.dart';
 import 'package:mypod_flutter/note_dialog.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
@@ -52,6 +53,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   Future<void> _loadNotes() async {
     try {
+      _connectionFailed(null);
       final notes = await client.notes.getAllNotes();
       print("Notes are $notes with length ${notes.length}");
       setState(() {
@@ -84,7 +86,10 @@ class MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(title: Text(widget.title)),
         body: _notes == null
-            ? Container()
+            ? LoadingScreen( 
+              exception: _connectionException,
+              onTryAgain: _loadNotes,
+            )
             : ListView.builder(
                 itemCount: _notes!.length,
                 itemBuilder: (context, index) {
