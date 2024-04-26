@@ -13,6 +13,7 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'company.dart' as _i2;
 import 'example.dart' as _i3;
 import 'note.dart' as _i4;
+import 'package:mypod_client/src/protocol/note.dart' as _i5;
 export 'company.dart';
 export 'example.dart';
 export 'note.dart';
@@ -53,6 +54,10 @@ class Protocol extends _i1.SerializationManager {
     }
     if (t == _i1.getType<_i4.Note?>()) {
       return (data != null ? _i4.Note.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i5.Note>) {
+      return (data as List).map((e) => deserialize<_i5.Note>(e)).toList()
+          as dynamic;
     }
     return super.deserialize<T>(data, t);
   }
